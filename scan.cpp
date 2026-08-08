@@ -219,11 +219,11 @@ inline void fast_priv_add_one(FastPubCtx& pc) {
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
     };
-    secp256k1_ec_pubkey_tweak_add(pc.ctx, &pc.pub, ONE32);
+    (void)secp256k1_ec_pubkey_tweak_add(pc.ctx, &pc.pub, ONE32);
 }
 
 inline void fast_load_priv(FastPubCtx& pc, const unsigned char priv[32]) {
-    secp256k1_ec_pubkey_create(pc.ctx, &pc.pub, priv);
+    (void)secp256k1_ec_pubkey_create(pc.ctx, &pc.pub, priv);
     pc.initialized = true;
 }
 
@@ -233,7 +233,7 @@ inline void fast_load_priv(FastPubCtx& pc, const unsigned char priv[32]) {
 inline void fast_get_btc_hashes(const FastPubCtx& pc, 
                                  unsigned char hu[20],
                                  unsigned char hc[20],
-                                 unsigned char p2sh_hash[20]) {
+                             unsigned char p2sh_hash[20]) {
     unsigned char pub[65]; 
     size_t pub_len = 65;
     secp256k1_ec_pubkey_serialize(pc.ctx, pub, &pub_len, &pc.pub, 
